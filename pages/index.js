@@ -1,9 +1,24 @@
 import Head from 'next/head';
 import Image from 'next/image';
+
 import Banner from '../components/banner';
+import Card from '../components/card';
+
+import coffeeStoresData from '../data/coffee-store.json';
+
 import styles from '../styles/Home.module.css';
 
-export default function Home() {
+// Here we used getStaticProps for pre-fetching then coffee-shop content
+// Anything in the getStaticProps is Server Side code
+export async function getStaticProps(context) {
+  return {
+    props: { coffeeStores: coffeeStoresData }, // will be passed to the page component as props
+  };
+}
+
+// Any thing in the Home Component is Client Side Code
+export default function Home(props) {
+  console.log('props', props);
   const handleOnBannerBtnClick = () => {
     console.log('Banner btn clicked');
   };
@@ -29,6 +44,24 @@ export default function Home() {
             height={400}
           />
         </div>
+        {props.coffeeStores.length > 0 && (
+          <>
+            <h2 className={styles.heading2}>Toronto Coffee Store</h2>
+            <div className={styles.cardLayout}>
+              {props.coffeeStores.map((coffeeStores) => {
+                return (
+                  <Card
+                    key={coffeeStores.id}
+                    name={coffeeStores.name}
+                    imageUrl={coffeeStores.imgUrl}
+                    href={`/coffee-store/${coffeeStores.id}`}
+                    className={styles.card}
+                  />
+                );
+              })}
+            </div>
+          </>
+        )}
       </main>
     </div>
   );
