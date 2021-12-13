@@ -4,6 +4,8 @@ import Link from 'next/link';
 
 import coffeeStoresData from '../../data/coffee-store.json';
 
+import styles from '../../styles/coffee-store.module.css';
+
 // Here we access the dynamic id at the server side using the params
 export async function getStaticProps(staticProps) {
   const params = staticProps.params;
@@ -19,39 +21,45 @@ export async function getStaticProps(staticProps) {
 }
 
 export async function getStaticPaths() {
+  const paths = coffeeStoresData.map((coffeeStore) => {
+    return {
+      params: {
+        id: coffeeStore.id.toString(),
+      },
+    };
+  });
+
   return {
-    paths: [
-      { params: { id: '0' } },
-      { params: { id: '1' } },
-      { params: { id: '300' } },
-    ],
+    paths,
     fallback: true,
   };
 }
 
 const CoffeeStore = (props) => {
   let router = useRouter();
-  let { id } = router.query;
   console.log('props', props.coffeeStore);
-
-  const { address, name, neighborhood } = props.coffeeStore;
 
   if (router.isFallback) {
     return <div>Loading.....</div>;
   }
 
+  const { address, name, neighborhood } = props.coffeeStore;
+
   return (
-    <div>
+    <div className={styles.layout}>
       <Head>
         <title>{name}</title>
       </Head>
-      Coffee Store Page 🏬 {id}
-      <Link href="/">
-        <a>Back to home</a>
-      </Link>
-      <p>{address}</p>
-      <p>{name}</p>
-      <p>{neighborhood}</p>
+      <div className={styles.col1}>
+        <Link href="/">
+          <a>🏘️Back to home</a>
+        </Link>
+        <p>{name}</p>
+      </div>
+      <div className={styles.col2}>
+        <p>{address}</p>
+        <p>{neighborhood}</p>
+      </div>
     </div>
   );
 };
