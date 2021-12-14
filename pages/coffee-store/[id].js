@@ -1,6 +1,8 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import Image from 'next/image';
+import cls from 'classnames';
 
 import coffeeStoresData from '../../data/coffee-store.json';
 
@@ -43,22 +45,51 @@ const CoffeeStore = (props) => {
     return <div>Loading.....</div>;
   }
 
-  const { address, name, neighborhood } = props.coffeeStore;
+  const { name, imgUrl, neighborhood } = props.coffeeStore;
+
+  const handleUpvoteButton = () => {
+    console.log('Hi');
+  };
 
   return (
     <div className={styles.layout}>
       <Head>
         <title>{name}</title>
       </Head>
-      <div className={styles.col1}>
-        <Link href="/">
-          <a>🏘️Back to home</a>
-        </Link>
-        <p>{name}</p>
-      </div>
-      <div className={styles.col2}>
-        <p>{address}</p>
-        <p>{neighborhood}</p>
+      <div className={styles.container}>
+        <div className={styles.col1}>
+          <div className={styles.backToHomeLink}>
+            <Link href="/">
+              <a>🏘️Back to home</a>
+            </Link>
+          </div>
+          <div className={styles.nameWrapper}>
+            <h1 className={styles.name}>{name}</h1>
+          </div>
+          <div className={styles.storeImgWrapper}>
+            <Image
+              src={imgUrl}
+              width={600}
+              height={360}
+              className={styles.storeImg}
+              alt={name}
+            />
+          </div>
+        </div>
+
+        <div className={cls('glass', styles.col2)}>
+          <div className={styles.iconWrapper}>
+            <Image src="/static/icons/nearMe.svg" width="24" height="24" />
+            <p className={styles.text}>{neighborhood}</p>
+          </div>
+          <div className={styles.iconWrapper}>
+            <Image src="/static/icons/stars.svg" width="24" height="24" />
+            <p className={styles.text}>1</p>
+          </div>
+          <button className={styles.upvoteButton} onClick={handleUpvoteButton}>
+            Up Vote
+          </button>
+        </div>
       </div>
     </div>
   );
