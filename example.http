@@ -1,0 +1,6 @@
+GET https://api.foursquare.com/v3/places/nearby?ll=20.5937,78.9629&limit=10
+Content-Type: application/json
+Authorization: fsq3x+2cZLh1WACowWmZbGd8n5xI6RQVTuWv11rXo+rd9NE=
+
+GET https://unsplash.com/search/coffeeshops
+Content-Type: application/json
