@@ -4,6 +4,7 @@ import cls from 'classnames';
 import styles from './card.module.css';
 
 const Card = (props) => {
+  console.log(props)
   return (
     <Link href={props.href}>
       <a className={styles.cardLink}>
@@ -12,7 +13,7 @@ const Card = (props) => {
             <h2 className={styles.cardHeader}>{props.name}</h2>
           </div>
           <div className={styles.cardImageWrapper}>
-            <Image src={props.imageUrl} alt="" width={260} height={160} />
+            <Image src={props.imageUrl} alt={props.name} className={styles.cardImage} width={260} height={160} />
           </div>
         </div>
       </a>
