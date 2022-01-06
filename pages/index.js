@@ -5,14 +5,8 @@ import Image from 'next/image';
 import Banner from '../components/banner';
 import Card from '../components/card';
 
-<<<<<<< HEAD
-import { fetchCoffeeStores } from '../lib/coffee-store';
-import useTrackLocation from '../hooks/use-track-location';
-
-=======
 // import coffeeStoresData from '../data/coffee-store.json';
 import { fetchCoffeeStores } from '../lib/coffee-stores';
->>>>>>> 066a07e8f3eb6846107fa627201e80c13d2d7bcd
 import styles from '../styles/Home.module.css';
 
 // Here we used getStaticProps for pre-fetching then coffee-shop content
@@ -20,13 +14,9 @@ import styles from '../styles/Home.module.css';
 export async function getStaticProps(context) {
   const coffeeStores = await fetchCoffeeStores();
   return {
-<<<<<<< HEAD
-    props: { coffeeStores }, // will be passed to the page component as props
-=======
     props: {
       coffeeStores,
-    } // will be passed to the page component as props
->>>>>>> 066a07e8f3eb6846107fa627201e80c13d2d7bcd
+    }, // will be passed to the page component as props
   };
 }
 
@@ -106,24 +96,19 @@ export default function Home(props) {
         )}
 
         {props.coffeeStores.length > 0 && (
-<<<<<<< HEAD
-          <>
-            <h2 className={styles.heading2}>Bangalore Coffee Stores</h2>
-            <div className={styles.cardLayout}>
-              {props.coffeeStores.map((coffeeStores) => {
-                // console.log(coffeeStores);
-=======
           <div className={styles.sectionWrapper}>
             <h2 className={styles.heading2}>Toronto Coffee Store</h2>
             <div className={styles.cardLayout}>
               {props.coffeeStores.map((coffeeStore) => {
                 // console.log(coffeeStore.fsq_id)
->>>>>>> 066a07e8f3eb6846107fa627201e80c13d2d7bcd
                 return (
                   <Card
                     key={coffeeStore.fsq_id}
                     name={coffeeStore.name}
-                    imageUrl={coffeeStore.imgUrl || 'https://images.unsplash.com/photo-1504753793650-d4a2b783c15e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80'}
+                    imageUrl={
+                      coffeeStore.imgUrl ||
+                      'https://images.unsplash.com/photo-1504753793650-d4a2b783c15e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80'
+                    }
                     href={`/coffee-store/${coffeeStore.fsq_id}`}
                     className={styles.card}
                   />
